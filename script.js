@@ -1,23 +1,46 @@
 var currentPlayer = 'X';
 var cells = document.getElementsByClassName('cell');
+var userCounter = document.getElementById('user-counter');
+var counterKey = 'userCounter';
+
+function initializeCounter() {
+  if (!localStorage.getItem(counterKey)) {
+    localStorage.setItem(counterKey, '0');
+  }
+}
+
+function incrementCounter() {
+  var count = parseInt(localStorage.getItem(counterKey));
+  count++;
+  localStorage.setItem(counterKey, count.toString());
+}
+
+function updateCounterDisplay() {
+  var count = parseInt(localStorage.getItem(counterKey));
+  userCounter.innerHTML = 'Number of users played till now: ' + count;
+}
 
 function makeMove(cellIndex) {
   if (cells[cellIndex].innerHTML === '') {
     cells[cellIndex].innerHTML = currentPlayer;
     cells[cellIndex].classList.add(currentPlayer);
-    
+
     if (checkWin(currentPlayer)) {
       alert(currentPlayer + ' wins!');
       resetGame();
+      incrementCounter();
+      updateCounterDisplay();
       return;
     }
-    
+
     if (checkDraw()) {
       alert('It\'s a draw!');
       resetGame();
+      incrementCounter();
+      updateCounterDisplay();
       return;
     }
-    
+
     currentPlayer = (currentPlayer === 'X') ? 'O' : 'X';
   }
 }
@@ -44,7 +67,7 @@ function checkWin(player) {
       return true;
     }
   }
-  
+
   return false;
 }
 
@@ -64,3 +87,6 @@ function resetGame() {
   }
   currentPlayer = 'X';
 }
+
+initializeCounter();
+updateCounterDisplay();
