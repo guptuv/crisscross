@@ -1,6 +1,8 @@
 body {
   background-color: #f2f2f2;
   font-family: Arial, sans-serif;
+  position: relative;
+  min-height: 100vh;
 }
 
 h1 {
@@ -51,3 +53,11 @@ h1 {
   color: #ffa500;
 }
 
+#footer {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #777;
+}
